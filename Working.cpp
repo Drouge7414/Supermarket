@@ -25,61 +25,44 @@ int main()
    // Print heading.
    cout << "\t\t\t\t\t" << HEAD1 << endl;
    // Print two blank lines.
-   cout << endl << endl;  
-
-   // Read first record 
-   cout << "Enter day of week or done to quit: ";
-   cin >> dayOfWeek;
- 
-   if(dayOfWeek  == SENTINEL)
-      notDone = false;
-   else
-   {
-      cout << "Enter hours worked: ";
-      cin >> hoursTotal;
-      prevDay = dayOfWeek;
-      hoursWorked += hoursTotal;
-      cout << dayOfWeek <<": " << hoursTotal << endl;
+   cout << endl << endl;     
    
-   }	   
-		
-   
-   
-  
-      // Implement control break logic here
-      // Include work done in the dayChange() function
-
+    // Implement control break logic here
+    // Include work done in the dayChange() function
 
     // Loop to process subsequent days and accumulate totals.
     while (notDone)
     {
         cout << "Enter day of week or done to quit: ";
         cin >> dayOfWeek;
-         cout << "Enter hours worked: ";
-            cin >> hoursTotal;
 
-        if (dayOfWeek == SENTINEL)
-            notDone = false;
-        else
-        {
-            // Control break logic: Check if day has changed.
-            if (dayOfWeek != prevDay)
-            {
-                // Output the previous day's total before resetting.
-                cout << "\t\t" << DAY_FOOTER << hoursWorked << endl;
-                prevDay = dayOfWeek;
-                hoursWorked = 0; // Reset daily total for new day.
-            }
-
-            // Prompt for hours worked on current day.
-            hoursWorked += hoursTotal; // Accumulate total hours worked.
-            cout << dayOfWeek << ": " << hoursTotal << endl;
+		//Before we proceed, we need to check if the user wants to quit.
+        if (dayOfWeek == SENTINEL) {
+			notDone = false; //Since we are breaking out of the loop, setting notDone to false is kinda redundant, but it's good practice.
+			break; //have to break out of the loop. None of the code below and inside this loop will be executed
         }
+
+		//Proceed with the rest of the program, since the user doesn't want to quit.
+        cout << "Enter hours worked: ";
+        cin >> hoursTotal;
+
+        // Control break logic: Check if day has changed.
+        if (dayOfWeek != prevDay)
+        {
+              // Output the previous day's total before resetting.
+              cout << "\t\t" << DAY_FOOTER << hoursWorked << endl;
+              prevDay = dayOfWeek;
+              hoursWorked = 0; // Reset daily total for new day.
+        }
+
+        // Prompt for hours worked on current day.
+        hoursWorked += hoursTotal; // Accumulate total hours worked.
+        cout << dayOfWeek << ": " << hoursTotal << endl;
     }
 
     // Output the final day's total after exiting the loop.
-    if (dayOfWeek == SENTINEL)
-        cout << "\t\t" << DAY_FOOTER << hoursWorked << endl;
+	//if (dayOfWeek == SENTINEL) //This is not needed, since the loop will only exit if the user enters "done"
+    cout << "\t\t" << DAY_FOOTER << hoursWorked << endl;
 
     return 0;
 }

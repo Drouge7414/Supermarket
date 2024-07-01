@@ -27,54 +27,44 @@ int main()
    // Print two blank lines.
    cout << endl << endl;  
 
-   // Read first record 
-   cout << "Enter day of week or done to quit: ";
-   cin >> dayOfWeek;
- 
-   if(dayOfWeek  == SENTINEL)
-      notDone = false;
-   else
-   {
-      cout << "Enter hours worked: ";
-      cin >> hoursTotal;
-      prevDay = dayOfWeek;
-      hoursWorked = hoursWorked + hoursTotal;
-      cout << dayOfWeek <<": " << hoursTotal << endl;
-   }	   
-		
-   
-   
-  
-      // Implement control break logic here
-      // Include work done in the dayChange() function
+   // Implement control break logic here
+   // Include work done in the dayChange() function
 
 
-    while(notDone)
-   {	
-   cout << "Enter day of week or done to quit: ";
-   cin >> dayOfWeek;
-      
-   {
-      if (dayOfWeek == prevDay)
-   
-   
+   while (notDone) {
+       cout << "Enter day of week or done to quit: ";
+       cin >> dayOfWeek;
 
-      cout << "Enter hours worked: ";
-      cin >> hoursTotal;
-      prevDay = dayOfWeek;
-      hoursTotal = hoursTotal + hoursTotal;
-      hoursWorked = hoursWorked + hoursTotal;
+	   //Before we proceed, we need to check if the user wants to quit.
+       if (dayOfWeek == SENTINEL) {
+		   notDone = false; //Since we are breaking out of the loop, setting notDone to false is kinda redundant, but it's good practice.
+		   break; //have to break out of the loop. None of the code below and inside this loop will be executed
+       }
 
- 
+       //Since we are not quitting, we can proceed with the rest of the program.
+	   cout << "Enter hours worked: ";
+       cin >> hoursTotal;
+
+	   //Here we check if user entered the same day as the previous day.
+       if (dayOfWeek == prevDay) {
+		   //prevDay = dayOfWeek; //This line is not needed, because both dayOfWeek and prevDay are already the same.
+		   hoursTotal = hoursTotal + hoursTotal; // Accumulate total hours worked for this same day.
+		   hoursWorked = hoursWorked + hoursTotal; //Accumulating total hours worked for the week.
+       }
+       else { //If it's a new day...
+           prevDay = dayOfWeek; //Set the previous day to the current day.
+		   hoursWorked += hoursTotal; //Updating weekly total hours worked.
+       }
+
+       cout << "\t\t" << DAY_FOOTER << hoursTotal << endl;
+       cout << dayOfWeek << ": " << hoursTotal << endl;
+   }
 
 
-   cout << "\t\t" << DAY_FOOTER << hoursTotal << endl;
-   cout << dayOfWeek << ": " << hoursTotal<< endl;
-   }}
-
-
-   if (hoursTotal > 0)
-      cout << "\t\t" << DAY_FOOTER << hoursTotal << endl;			
+   if (hoursTotal > 0) {
+       cout << "\t\t" << DAY_FOOTER << hoursTotal << endl;
+	   cout << "\t\t" << "Weekly Total: " << hoursWorked << endl; //Output the total hours worked for the week.
+   }
    return 0;
 
 }
